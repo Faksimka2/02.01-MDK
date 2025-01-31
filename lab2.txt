@@ -1,1 +1,178 @@
 Лабораторная работа №2
+
+5 глава
+
+311U04@git:~$ help
+GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
+These shell commands are defined internally.  Type `help' to see this list.
+Type `help name' to find out more about the function `name'.
+Use `info bash' to find out more about the shell in general.
+Use `man -k' or `info' to find out more about commands not in this list.
+
+A star (*) next to a name means that the command is disabled.
+
+ job_spec [&]                            history [-c] [-d offset] [n] or hist>
+ (( expression ))                        if COMMANDS; then COMMANDS; [ elif C>
+ . filename [arguments]                  jobs [-lnprs] [jobspec ...] or jobs >
+ :                                       kill [-s sigspec | -n signum | -sigs>
+ [ arg... ]                              let arg [arg ...]
+ [[ expression ]]                        local [option] name[=value] ...
+ alias [-p] [name[=value] ... ]          logout [n]
+ bg [job_spec ...]                       mapfile [-d delim] [-n count] [-O or>
+ bind [-lpsvPSVX] [-m keymap] [-f file>  popd [-n] [+N | -N]
+ break [n]                               printf [-v var] format [arguments]
+ builtin [shell-builtin [arg ...]]       pushd [-n] [+N | -N | dir]
+ caller [expr]                           pwd [-LP]
+ case WORD in [PATTERN [| PATTERN]...)>  read [-ers] [-a array] [-d delim] [->
+ cd [-L|[-P [-e]] [-@]] [dir]            readarray [-d delim] [-n count] [-O >
+ command [-pVv] command [arg ...]        readonly [-aAf] [name[=value] ...] o>
+ compgen [-abcdefgjksuv] [-o option] [>  return [n]
+ complete [-abcdefgjksuv] [-pr] [-DEI]>  select NAME [in WORDS ... ;] do COMM>
+ compopt [-o|+o option] [-DEI] [name .>  set [-abefhkmnptuvxBCEHPT] [-o optio>
+ continue [n]                            shift [n]
+ coproc [NAME] command [redirections]    shopt [-pqsu] [-o] [optname ...]
+ declare [-aAfFgiIlnrtux] [name[=value>  source filename [arguments]
+ dirs [-clpv] [+N] [-N]                  suspend [-f]
+ disown [-h] [-ar] [jobspec ... | pid >  test [expr]
+ echo [-neE] [arg ...]                   time [-p] pipeline
+ enable [-a] [-dnps] [-f filename] [na>  times
+ eval [arg ...]                          trap [-lp] [[arg] signal_spec ...]
+ exec [-cl] [-a name] [command [argume>  true
+ exit [n]                                type [-afptP] name [name ...]
+ export [-fn] [name[=value] ...] or ex>  typeset [-aAfFgiIlnrtux] name[=value>
+ false                                   ulimit [-SHabcdefiklmnpqrstuvxPRT] [>
+ fc [-e ename] [-lnr] [first] [last] o>  umask [-p] [-S] [mode]
+ fg [job_spec]                           unalias [-a] name [name ...]
+ for NAME [in WORDS ... ] ; do COMMAND>  unset [-f] [-v] [-n] [name ...]
+ for (( exp1; exp2; exp3 )); do COMMAN>  until COMMANDS; do COMMANDS-2; done
+ function name { COMMANDS ; } or name >  variables - Names and meanings of so>
+ getopts optstring name [arg ...]        wait [-fn] [-p var] [id ...]
+ hash [-lr] [-p pathname] [-dt] [name >  while COMMANDS; do COMMANDS-2; done
+ help [-dms] [pattern ...]               { COMMANDS ; }
+
+311U04@git:~$ whatis ls
+ls (1)               - list directory contents
+
+
+311U04:~$ info ls
+
+10.1 ‘ls’: List directory contents
+==================================
+
+The ‘ls’ program lists information about files (of any type, including
+directories).  Options and file arguments can be intermixed arbitrarily,
+as usual.
+
+
+[311u04@311U04 ~]$ type type
+type — это встроенная команда bash
+
+type cp
+cp является /usr/bin/cp
+
+[311u04@311U04 ~]$ which ls
+alias ls='ls --color=auto'
+	/usr/bin/ls
+
+[311u04@311U04 ~]$ help cd
+cd: cd [-L|[-P [-e]] [-@]] [каталог]
+    Change the shell working directory.
+
+[311u04@311U04 ~]$ mkdir --help
+Использование: mkdir [ПАРАМЕТР]… КАТАЛОГ…
+Создаёт КАТАЛОГ(и), если он ещё не существует.
+
+Аргументы, обязательные для длинных параметров, обязательны и для коротких.
+  -m, --mode=РЕЖИМ   установить права доступа к файлу (как в chmod),
+                     а не a=rwx - umask
+  -p, --parents      не выдавать ошибку, если существует; создавать
+                     родительские каталоги при необходимости
+  -v, --verbose      печатать сообщение о каждом созданном каталоге
+  -Z                 установить контекст безопасности SELinux
+                     каждого создаваемого каталога равным типу по умолчанию
+      --context[=CTX]  подобно -Z, или если указан CTX, то установить
+                     контекст безопасности SELinux
+                     или SMACK равным CTX
+      --help     показать эту справку и выйти
+      --version  показать информацию о версии и выйти
+
+
+[311u04@311U04 ~]$ man ls
+
+S(1)                            User Commands                           LS(1)
+
+NAME
+       ls - list directory contents
+
+SYNOPSIS
+       ls [OPTION]... [FILE]...
+
+DESCRIPTION
+       List  information  about  the FILEs (the current directory by default).
+       Sort entries alphabetically if none of -cftuvSUX nor --sort  is  speci‐
+       fied.
+
+[311u04@311U04 ~]$ man 5 passwd
+
+PASSWD(5)                  Linux Programmer's Manual                 PASSWD(5)
+
+NAME
+       passwd - password file
+
+DESCRIPTION
+       The  /etc/passwd file is a text file that describes user login accounts
+       for the system.  It should have read permission allowed for  all  users
+       (many  utilities,  like ls(1) use it to map user IDs to usernames), but
+       write access only for the superuser.
+
+[311u04@311U04 ~]$ info coreutils
+
+Next: Introduction,  Up: (dir)
+
+GNU Coreutils
+*************
+
+This manual documents version 8.32 of the GNU core utilities, including
+the standard programs for text and file manipulation.
+
+   Copyright © 1994-2020 Free Software Foundation, Inc.
+
+     Permission is granted to copy, distribute and/or modify this
+     document under the terms of the GNU Free Documentation License,
+     Version 1.3 or any later version published by the Free Software
+     Foundation; with no Invariant Sections, with no Front-Cover Texts,
+     and with no Back-Cover Texts.  A copy of the license is included in
+     the section entitled “GNU Free Documentation License”.
+
+* Menu:
+
+
+[311u04@311U04 ~]$  alias foo='cd /usr; ls; cd -'
+[311u04@311U04 ~]$ foo
+bin    i686-w64-mingw32  lib    libexec  sbin   src  x86_64-w64-mingw32
+games  include           lib64  local    share  tmp
+
+[311u04@311U04 ~]$ type foo
+foo — это псевдонимом для «cd /usr; ls; cd -»
+
+
+[311u04@311U04 ~]$ alias
+alias cls='clear'
+alias diskspace='df -h'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias foo='cd /usr; ls; cd -'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias mc='. /usr/libexec/mc/mc-wrapper.sh'
+alias mingw32-env='eval `rpm --eval %{mingw32_env}`'
+alias mingw64-env='eval `rpm --eval %{mingw64_env}`'
+alias which='(alias; declare -f) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot'
+alias zegrep='zegrep --color=auto'
+alias zfgrep='zfgrep --color=auto'
+alias zgrep='zgrep --color=auto'
+
+
+
