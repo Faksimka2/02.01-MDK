@@ -176,3 +176,204 @@ alias zgrep='zgrep --color=auto'
 
 
 
+6 Глава
+
+
+[311u04@311U04 ~]$ ls -l /usr/bin > ls-output.txt
+[311u04@311U04 ~]$ ls -l ls-output.txt
+-rw-r--r--. 1 311u04 пользователи домена 180471 янв 31 13:21 ls-output.txt
+
+[311u04@311U04 ~] less ls-output.txt
+
+итого 557520
+-rwxr-xr-x. 1 root root       52920 янв 25  2024 [
+lrwxrwxrwx. 1 root root          12 июл  5  2024 7z -> /usr/bin/7zz
+lrwxrwxrwx. 1 root root          11 июл  5  2024 7za -> /usr/bin/7z
+lrwxrwxrwx. 1 root root          11 июл  5  2024 7zr -> /usr/bin/7z
+-rwxr-xr-x. 1 root root     2571776 июл  5  2024 7zz
+-rwxr-xr-x. 1 root root       33456 авг 11  2020 a52dec
+-rwxr-xr-x. 1 root root       29456 окт 29  2020 ac
+-rwxr-xr-x. 2 root root       36020 июл 24  2024 aclocal
+-rwxr-xr-x. 2 root root       36020 июл 24  2024 aclocal-1.16
+
+
+[311u04@311U04 ~]$ ls -l /usr/bin >> ls-output.txt
+[311u04@311U04 ~]$  ls -l ls-output.txt
+-rw-r--r--. 1 311u04 пользователи домена 360942 янв 31 13:26 ls-output.txt
+
+[311u04@311U04 ~]$ cat ls-output.txt
+
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_flushcontext -> tpm2
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_getcap -> tpm2
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_getcommandauditdigest -> tpm2
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_geteccparameters -> tpm2
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_getekcertificate -> tpm2
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_getpolicydigest -> tpm2
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_getrandom -> tpm2
+lrwxrwxrwx. 1 root root           4 июл  1  2024 tpm2_getsessionauditdigest -> tpm2
+
+[311u04@311U04 ~]$ cat
+Я стдуент ахах
+Я стдуент ахах
+[311u04@311U04 ~]$ 
+
+[311u04@311U04 ~]$  cat > eat_more.txt
+Съешь ещё этих мягких французских булок, да выпей чаю.
+[311u04@311U04 ~]$ ls
+ dir3           ls-output.txt  'VirtualBox VMs'   Изображения     Шаблоны
+ eat_more.txt   playgrond       Видео             Музыка
+ lab1.txt       playground      Документы         Общедоступные
+ ls-error.txt   sync.sh         Загрузки         'Рабочий стол'
+
+[311u04@311U04 ~]$ cat eat_more.txt
+Съешь ещё этих мягких французских булок, да выпей чаю.
+
+
+[311u04@311U04 ~]$ ls -l /usr/bin | less
+
+итого 557520
+-rwxr-xr-x. 1 root root       52920 янв 25  2024 [
+lrwxrwxrwx. 1 root root          12 июл  5  2024 7z -> /usr/bin/7zz
+lrwxrwxrwx. 1 root root          11 июл  5  2024 7za -> /usr/bin/7z
+lrwxrwxrwx. 1 root root          11 июл  5  2024 7zr -> /usr/bin/7z
+-rwxr-xr-x. 1 root root     2571776 июл  5  2024 7zz
+-rwxr-xr-x. 1 root root       33456 авг 11  2020 a52dec
+-rwxr-xr-x. 1 root root       29456 окт 29  2020 ac
+-rwxr-xr-x. 2 root root       36020 июл 24  2024 aclocal
+-rwxr-xr-x. 2 root root       36020 июл 24  2024 aclocal-1.16
+-rwxr-xr-x. 1 root root       23544 июн  3  2022 aconnect
+
+[311u04@311U04 ~]$ ls /bin /usr/bin | sort | less
+
+[
+7z
+7z
+7za
+7za
+7zr
+7zr
+7zz
+7zz
+a52dec
+a52dec
+ac
+ac
+aclocal
+aclocal
+aclocal-1.16
+aclocal-1.16
+aconnect
+aconnect
+acountry
+acountry
+
+
+[311u04@311U04 ~]$  ls /bin /usr/bin | sort | uniq | less
+
+[
+7z
+7za
+7zr
+7zz
+a52dec
+ac
+aclocal
+aclocal-1.16
+aconnect
+acountry
+acyclic
+addr2line
+adig
+ahost
+airscan-discover
+alac
+alias
+alsaloop
+alsamixer
+alsaucm
+alsaunmute
+
+
+[311u04@311U04 ~]$ wc ls-output.txt
+  5500  51406 360942 ls-output.txt
+
+[311u04@311U04 ~]$ ls /bin /usr/bin | sort | uniq | wc -l
+2752
+
+
+[311u04@311U04 ~]$ ls /bin /usr/bin | sort | uniq | grep zip
+
+bunzip2
+bzip2
+bzip2recover
+ebunzip
+ebzip
+ebzipinfo
+funzip
+gpg-zip
+gunzip
+gzip
+lzip
+mzip
+p7zip
+rzip
+unzip
+unzipsfx
+zip
+zipcloak
+zipdetails
+zipgrep
+zipinfo
+zipnote
+zipsplit
+
+
+[311u04@311U04 ~]$  head -n 5 ls-output.txt
+итого 557520
+-rwxr-xr-x. 1 root root       52920 янв 25  2024 [
+lrwxrwxrwx. 1 root root          12 июл  5  2024 7z -> /usr/bin/7zz
+lrwxrwxrwx. 1 root root          11 июл  5  2024 7za -> /usr/bin/7z
+lrwxrwxrwx. 1 root root          11 июл  5  2024 7zr -> /usr/bin/7z
+
+
+[311u04@311U04 ~]$ tail -n 5 ls-output.txt
+-rwxr-xr-x. 1 root root         201 апр  5  2023 zstdless
+lrwxrwxrwx. 1 root root           4 янв 17  2024 zstdmt -> zstd
+-rwxr-xr-x. 1 root root      101448 ноя  1  2020 zvbi-atsc-cc
+-rwxr-xr-x. 1 root root       11720 ноя  1  2020 zvbi-chains
+-rwxr-xr-x. 1 root root      282184 ноя  1  2020 zvbi-ntsc-cc
+
+
+[311u04@311U04 ~]$ ls /usr/bin | tail -n 5
+zstdless
+zstdmt
+zvbi-atsc-cc
+zvbi-chains
+zvbi-ntsc-cc
+
+
+[311u04@311U04 ~]$  ls /usr/bin | tee ls.txt | grep zip
+bunzip2
+bzip2
+bzip2recover
+ebunzip
+ebzip
+ebzipinfo
+funzip
+gpg-zip
+gunzip
+gzip
+lzip
+mzip
+p7zip
+rzip
+unzip
+unzipsfx
+zip
+zipcloak
+zipdetails
+zipgrep
+zipinfo
+zipnote
+zipsplit
+
