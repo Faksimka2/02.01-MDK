@@ -1,0 +1,234 @@
+Работа с контейнерами БД
+
+1. Запуск контейнера из образа
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker run -d mysql
+b77695f30727668ad43856a74817fd85eff68bf1b8a6e5a95f6bd3c625cbaa77
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ ps -a
+    PID TTY          TIME CMD
+   8525 pts/1    00:00:00 ps
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS                      PORTS     NAMES
+b77695f30727   mysql     "docker-entrypoint.s…"   31 seconds ago   Exited (1) 29 seconds ago             exciting_sanderson
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker run -e MYSQL_ROOT_PASSWORD=12345 -d mysql
+9b66720d53de25d3535475538c5f72e75694af55377d0a72d215785cd5e15bce
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker ps 
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS              PORTS                 NAMES
+9b66720d53de   mysql     "docker-entrypoint.s…"   About a minute ago   Up About a minute   3306/tcp, 33060/tcp   cranky_goldberg
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker run -e MARIADB_ROOT_PASSWORD=12345 -d mariadb
+c3d774a3121ffee61ea2ded95cc107614ba64e43ec00249f4f9e8b0496e98a09
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker run -e POSTGRES_PASSWORD=12345 -d postgres
+2b33c42a809294670aa08d43494cf08761b56e689a283f72fcab3f6b83f70858
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker ps 
+CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS         PORTS                 NAMES
+2b33c42a8092   postgres   "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds   5432/tcp              funny_austin
+c3d774a3121f   mariadb    "docker-entrypoint.s…"   2 minutes ago   Up 2 minutes   3306/tcp              laughing_brown
+9b66720d53de   mysql      "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes   3306/tcp, 33060/tcp   cranky_goldberg
+
+2.Информация и процессах в контейнере
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker logs b77695f30727 
+2025-03-14 05:50:31+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 9.2.0-1.el9 started.
+2025-03-14 05:50:32+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2025-03-14 05:50:32+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 9.2.0-1.el9 started.
+2025-03-14 05:50:32+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+    You need to specify one of the following as an environment variable:
+    - MYSQL_ROOT_PASSWORD
+    - MYSQL_ALLOW_EMPTY_PASSWORD
+    - MYSQL_RANDOM_ROOT_PASSWORD
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker logs ec2b5816a0d0
+2025-03-14 05:56:10+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:11.7.2+maria~ubu2404 started.
+2025-03-14 05:56:11+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup///memory.pressure not writable, functionality unavailable to MariaDB
+2025-03-14 05:56:11+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2025-03-14 05:56:11+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:11.7.2+maria~ubu2404 started.
+2025-03-14 05:56:11+00:00 [ERROR] [Entrypoint]: Database is uninitialized and password option is not specified
+        You need to specify one of MARIADB_ROOT_PASSWORD, MARIADB_ROOT_PASSWORD_HASH, MARIADB_ALLOW_EMPTY_ROOT_PASSWORD and MARIADB_RANDOM_ROOT_PASSWORD
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker logs ab40f7679ce8
+Error: Database is uninitialized and superuser password is not specified.
+       You must specify POSTGRES_PASSWORD to a non-empty value for the
+       superuser. For example, "-e POSTGRES_PASSWORD=password" on "docker run".
+
+       You may also use "POSTGRES_HOST_AUTH_METHOD=trust" to allow all
+       connections without a password. This is *not* recommended.
+
+       See PostgreSQL documentation about "trust":
+       https://www.postgresql.org/docs/current/auth-trust.html
+3. Заходим в Контейнер
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker exec -it 9b66720d53de mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 9.2.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql> show tables;
++------------------------------------------------------+
+| Tables_in_mysql                                      |
++------------------------------------------------------+
+| columns_priv                                         |
+| component                                            |
+| db                                                   |
+| default_roles                                        |
+| engine_cost                                          |
+| func                                                 |
+| general_log                                          |
+| global_grants                                        |
+| gtid_executed                                        |
+| help_category                                        |
+| help_keyword                                         |
+| help_relation                                        |
+| help_topic                                           |
+| innodb_index_stats                                   |
+| innodb_table_stats                                   |
+| ndb_binlog_index                                     |
+| password_history                                     |
+| plugin                                               |
+| procs_priv                                           |
+| proxies_priv                                         |
+| replication_asynchronous_connection_failover         |
+| replication_asynchronous_connection_failover_managed |
+| replication_group_configuration_version              |
+| replication_group_member_actions                     |
+| role_edges                                           |
+| server_cost                                          |
+| servers                                              |
+| slave_master_info                                    |
+| slave_relay_log_info                                 |
+| slave_worker_info                                    |
+| slow_log                                             |
+| tables_priv                                          |
+| time_zone                                            |
+| time_zone_leap_second                                |
+| time_zone_name                                       |
+| time_zone_transition                                 |
+| time_zone_transition_type                            |
+| user                                                 |
++------------------------------------------------------+
+38 rows in set (0.00 sec)
+
+mysql> show columns from user;
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Field                    | Type                              | Null | Key | Default               | Extra |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Host                     | char(255)                         | NO   | PRI |                       |       |
+| User                     | char(32)                          | NO   | PRI |                       |       |
+| Select_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Insert_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Update_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Delete_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Reload_priv              | enum('N','Y')                     | NO   |     | N                     |       |
+| Shutdown_priv            | enum('N','Y')                     | NO   |     | N                     |       |
+| Process_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| File_priv                | enum('N','Y')                     | NO   |     | N                     |       |
+| Grant_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| References_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Index_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_db_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Super_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tmp_table_priv    | enum('N','Y')                     | NO   |     | N                     |       |
+| Lock_tables_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Execute_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_slave_priv          | enum('N','Y')                     | NO   |     | N                     |       |
+| Repl_client_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_view_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Show_view_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_routine_priv      | enum('N','Y')                     | NO   |     | N                     |       |
+| Alter_routine_priv       | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_user_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Event_priv               | enum('N','Y')                     | NO   |     | N                     |       |
+| Trigger_priv             | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_tablespace_priv   | enum('N','Y')                     | NO   |     | N                     |       |
+| ssl_type                 | enum('','ANY','X509','SPECIFIED') | NO   |     |                       |       |
+| ssl_cipher               | blob                              | NO   |     | NULL                  |       |
+| x509_issuer              | blob                              | NO   |     | NULL                  |       |
+| x509_subject             | blob                              | NO   |     | NULL                  |       |
+| max_questions            | int unsigned                      | NO   |     | 0                     |       |
+| max_updates              | int unsigned                      | NO   |     | 0                     |       |
+| max_connections          | int unsigned                      | NO   |     | 0                     |       |
+| max_user_connections     | int unsigned                      | NO   |     | 0                     |       |
+| plugin                   | char(64)                          | NO   |     | caching_sha2_password |       |
+| authentication_string    | text                              | YES  |     | NULL                  |       |
+| password_expired         | enum('N','Y')                     | NO   |     | N                     |       |
+| password_last_changed    | timestamp                         | YES  |     | NULL                  |       |
+| password_lifetime        | smallint unsigned                 | YES  |     | NULL                  |       |
+| account_locked           | enum('N','Y')                     | NO   |     | N                     |       |
+| Create_role_priv         | enum('N','Y')                     | NO   |     | N                     |       |
+| Drop_role_priv           | enum('N','Y')                     | NO   |     | N                     |       |
+| Password_reuse_history   | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_reuse_time      | smallint unsigned                 | YES  |     | NULL                  |       |
+| Password_require_current | enum('N','Y')                     | YES  |     | NULL                  |       |
+| User_attributes          | json                              | YES  |     | NULL                  |       |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+51 rows in set (0.00 sec)
+
+
+mysql> select Host,user,User_attributes from user;
++-----------+------------------+-----------------+
+| Host      | user             | User_attributes |
++-----------+------------------+-----------------+
+| %         | root             | NULL            |
+| localhost | mysql.infoschema | NULL            |
+| localhost | mysql.session    | NULL            |
+| localhost | mysql.sys        | NULL            |
+| localhost | root             | NULL            |
++-----------+------------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> create database Fedorin;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create user 'Fedorin'@'%' identified by '123';
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> grant all privileges ON  Fedorin.*  TO 'Fedorin'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> flush privileges
+    -> ;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> flush privileges
+    -> ;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> use Fedorin
+Database changed
+mysql> create table var (
+    -> id int not null,
+    -> fio varchar(50) not null,
+    -> primary key (id)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
