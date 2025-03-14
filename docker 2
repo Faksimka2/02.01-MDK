@@ -232,3 +232,123 @@ mysql> create table var (
     -> primary key (id)
     -> );
 Query OK, 0 rows affected (0.02 sec)
+
+mysql> use Fedorin
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables
+    -> ;
++-------------------+
+| Tables_in_Fedorin |
++-------------------+
+| var               |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into var(id,fio) values(35,'Fedorin');
+Query OK, 1 row affected (0.00 sec)
+
+
+
+Работа с postgres
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker exec -it 2b33c42a8092  psql -U postgres
+psql (17.4 (Debian 17.4-1.pgdg120+2))
+Type "help" for help.
+
+postgres=# help
+You are using psql, the command-line interface to PostgreSQL.
+Type:  \copyright for distribution terms
+       \h for help with SQL commands
+       \? for help with psql commands
+       \g or terminate with semicolon to execute query
+       \q to quit
+postgres=# \?
+postgres=# \l
+                                                    List of databases
+   Name    |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | Locale | ICU Rules |   Access privileges   
+-----------+----------+----------+-----------------+------------+------------+--------+-----------+-----------------------
+ postgres  | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |        |           | 
+ template0 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |        |           | =c/postgres          +
+           |          |          |                 |            |            |        |           | postgres=CTc/postgres
+ template1 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |        |           | =c/postgres          +
+           |          |          |                 |            |            |        |           | postgres=CTc/postgres
+(3 rows)
+
+
+postgres=# create user Fedorin with password '1234';
+CREATE ROLE
+postgres=# create database test  owner Fedorin;
+CREATE DATABASE
+postgres=# \c test
+You are now connected to database "test" as user "postgres'
+test=# \dt
+ public | users | table | postgres
+
+test=# select * from users;
+
+test=# select * from user;
+ postgres
+
+test=# insert into users (id
+test(# ,fio) values (1, 'jjj');
+INSERT 0 1
+test=# select * from user;
+ postgres
+
+test=# insert into users (id
+,fio) values (1, 'jjj');
+ERROR:  duplicate key value violates unique constraint "users_pkey"
+DETAIL:  Key (id)=(1) already exists.
+test=# select * from users;
+  1 | jjj
+
+Работа с mariadb
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker exec -it mariadb mariadb -u root -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 11.7.2-MariaDB-ubu2404 mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE DATABASE Fedorin;
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [(none)]> drop database Fedorin
+    -> ;
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [(none)]> CREATE DATABASE Fedorin;
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [(none)]> create database  Fedorin;
+ERROR 1007 (HY000): Can't create database 'Fedorin'; database exists
+MariaDB [(none)]> character set = 'fedorin';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'character set = 'fedorin'' at line 1
+MariaDB [(none)]> create user fedorin identified by "1234";
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]> use Fedorin
+Database changed
+MariaDB [Fedorin]> create table Fedorin_01
+    -> ;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [Fedorin]> create table Fedorin_01 (a int);
+Query OK, 0 rows affected (0.005 sec)
+
+MariaDB [Fedorin]> show tables;
++-------------------+
+| Tables_in_Fedorin |
++-------------------+
+| Fedorin_01        |
++-------------------+
+1 row in set (0.000 sec)
+
+
+
