@@ -408,3 +408,91 @@ mysql> show databases
 | test2              |
 +--------------------+
 
+postgressql:
+postgres-# \l
+                                 List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   
+-----------+----------+----------+------------+------------+-----------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+
+
+
+postgres=# create user faksim with password '1234' superuser;
+CREATE ROLE
+postgres=# create database faksimka owner faksim;
+CREATE DATABASE
+postgres=# \l
+                                 List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   
+-----------+----------+----------+------------+------------+-----------------------
+ faksimka  | faksim   | UTF8     | en_US.utf8 | en_US.utf8 | 
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+
+
+10. Скачиваем образы phpmyadmin и dockage/phppgadmin
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker pull phpmyadmin
+Using default tag: latest
+latest: Pulling from library/phpmyadmin
+6e909acdb790: Already exists 
+5db2c4b6137b: Pull complete 
+dacb60b59038: Pull complete 
+64450047668b: Pull complete 
+4d6386e035f7: Pull complete 
+e4ca7ebe0914: Pull complete 
+3dc5d9089396: Pull complete 
+1778f52baa09: Pull complete 
+a5d9cb1c80ec: Pull complete 
+b116c8459f57: Pull complete 
+8f8ddda3587a: Pull complete 
+f432ea27fc70: Pull complete 
+6a5a37a900f3: Pull complete 
+4f4fb700ef54: Pull complete 
+2356864ac4b9: Pull complete 
+28fa232eddfc: Pull complete 
+a084403b2fe2: Pull complete 
+69286ddc9ea5: Pull complete 
+21d6bc6af9fd: Pull complete 
+5fb8db322bbb: Pull complete 
+Digest: sha256:6cb0a7146734b59c8ca4f450ce7bde9f518e36b10558af75fc36591cbea1d5cc
+Status: Downloaded newer image for phpmyadmin:latest
+docker.io/library/phpmyadmin:latest
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker pull dockage/phppgadmin
+Using default tag: latest
+latest: Pulling from dockage/phppgadmin
+1160f4abea84: Pull complete 
+320639358968: Pull complete 
+ccac454a1641: Pull complete 
+655f2626baaf: Pull complete 
+b48b9f30019b: Pull complete 
+e45df9444290: Pull complete 
+1014ff3641fa: Pull complete 
+6a6b76436159: Pull complete 
+Digest: sha256:520caedce16c9707a67bf2c1de730e1234539250f36bb052b06bd7b05269905b
+Status: Downloaded newer image for dockage/phppgadmin:latest
+docker.io/dockage/phppgadmin:latest
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker images
+REPOSITORY           TAG       IMAGE ID       CREATED       SIZE
+ubuntu               22.04m4   f00870c786ef   8 hours ago   325MB
+ubuntu               22.04m3   e5ee224aa820   8 hours ago   272MB
+postgres             latest    76e3e031d245   3 weeks ago   438MB
+ubuntu               22.04     a24be041d957   7 weeks ago   77.9MB
+phpmyadmin           latest    052506f2de4d   7 weeks ago   570MB
+mysql                latest    fa262c3a6564   8 weeks ago   797MB
+dockage/phppgadmin   latest    10873793df57   5 years ago   71.3MB
+
+
+
+
+
+
+
