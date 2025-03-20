@@ -1,0 +1,410 @@
+1. Создать новый контейнер на базе ubuntu
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker pull ubuntu:22.04
+22.04: Pulling from library/ubuntu
+9cb31e2e37ea: Pull complete 
+Digest: sha256:ed1544e454989078f5dec1bfdabd8c5cc9c48e0705d07b678ab6ae3fb61952d2
+Status: Downloaded newer image for ubuntu:22.04
+docker.io/library/ubuntu:22.04
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+ubuntu       22.04     a24be041d957   7 weeks ago   77.9MB
+
+2.Обновить контейнер apt update, apt upgrade, apt install iproute2, apt install iputils-ping, apt install dnsutils
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker run -it  a24be041d957
+root@1662edb4702f:/# apt update
+Get:1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]              
+Get:3 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]             
+Get:4 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+Get:6 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]            
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [3955 kB]   
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3000 kB]        
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1535 kB]    
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [65.7 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]   
+Get:14 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [81.4 kB]  
+Get:15 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [57.9 kB]
+Get:16 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [2692 kB]
+root@1662edb4702f:/# apt upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+The following packages will be upgraded:
+  libc-bin libc6 libcap2 libgnutls30 libgssapi-krb5-2 libk5crypto3 libkrb5-3 libkrb5support0 libseccomp2 libssl3 libtasn1-6
+11 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+Need to get 7544 kB of archives.
+After this operation, 5120 B of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc6 amd64 2.35-0ubuntu3.9 [3235 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libc-bin amd64 2.35-0ubuntu3.9 [706 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libcap2 amd64 1:2.44-1ubuntu0.22.04.2 [18.3 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libk5crypto3 amd64 1.19.2-2ubuntu0.6 [86.5 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libkrb5support0 amd64 1.19.2-2ubuntu0.6 [32.5 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libkrb5-3 amd64 1.19.2-2ubuntu0.6 [357 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgssapi-krb5-2 amd64 1.19.2-2ubuntu0.6 [145 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libssl3 amd64 3.0.2-0ubuntu1.19 [1905 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtasn1-6 amd64 4.18.0-4ubuntu0.1 [43.5 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgnutls30 amd64 3.7.3-4ubuntu1.6 [969 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libseccomp2 amd64 2.5.3-2ubuntu3~22.04.1 [47.4 kB]
+Fetched 7544 kB in 0s (45.1 MB/s)  
+debconf: delaying package configuration, since apt-utils is not installed
+(Reading database ... 4393 files and directories currently installed.)
+Preparing to unpack .../libc6_2.35-0ubuntu3.9_amd64.deb ...
+root@1662edb4702f:/# apt install iproute2
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libatm1 libbpf0 libbsd0 libcap2-bin libelf1 libmd0 libmnl0 libpam-cap libxtables12
+Suggested packages:
+  iproute2-doc
+The following NEW packages will be installed:
+  iproute2 libatm1 libbpf0 libbsd0 libcap2-bin libelf1 libmd0 libmnl0 libpam-cap libxtables12
+0 upgraded, 10 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1430 kB of archives.
+After this operation, 4151 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 libelf1 amd64 0.186-1build1 [51.0 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libbpf0 amd64 1:0.5.0-1ubuntu22.04.1 [140 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmd0 amd64 1.0.4-1build1 [23.0 kB]
+Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 libbsd0 amd64 0.11.5-1 [44.8 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy/main amd64 libmnl0 amd64 1.0.4-3build2 [13.2 kB]
+root@1662edb4702f:/# apt install dnsutils
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  bind9-dnsutils bind9-host bind9-libs libedit2 libicu70 libjson-c5 liblmdb0 libmaxminddb0 libnghttp2-14 libuv1 libxml2
+Suggested packages:
+  mmdb-bin
+The following NEW packages will be installed:
+  bind9-dnsutils bind9-host bind9-libs dnsutils libedit2 libicu70 libjson-c5 liblmdb0 libmaxminddb0 libnghttp2-14 libuv1 libxml2
+0 upgraded, 12 newly installed, 0 to remove and 0 not upgraded.
+Need to get 13.2 MB of archives.
+After this operation, 42.8 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 libicu70 amd64 70.1-2 [10.6 MB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libjson-c5 amd64 0.15-3~ubuntu1.22.04.2 [33.5 kB]
+root@1662edb4702f:/# apt install iputils-ping
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  iputils-ping
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 42.9 kB of archives.
+After this operation, 116 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 iputils-ping amd64 3:20211215-1 [42.9 kB]
+Fetched 42.9 kB in 0s (983 kB/s)        
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package iputils-ping.
+(Reading database ... 4738 files and directories currently installed.)
+Preparing to unpack .../iputils-ping_3%3a20211215-1_amd64.deb ...
+Unpacking iputils-ping (3:20211215-1) ...
+Setting up iputils-ping (3:20211215-1) ...
+root@1662edb4702f:/# apt instal mysql-client
+E: Invalid operation instal
+root@1662edb4702f:/# apt install mysql-client
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  mysql-client-8.0 mysql-client-core-8.0 mysql-common
+The following NEW packages will be installed:
+  mysql-client mysql-client-8.0 mysql-client-core-8.0 mysql-common
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2755 kB of archives.
+After this operation, 62.2 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-client-core-8.0 amd64 8.0.41-0ubuntu0.22.04.1 [2716 kB]
+
+Фиксируем изменения в контейнере при помощи docker commit
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker commit -m "Добавили iproute2, ip-putils-ping, dnsutils" -a "fedorinmaksim967@gmail.com" 1662edb4702f ubuntu:22.04m3 
+sha256:e5ee224aa8201980ba22c9f0c3c992e3b379415de215c925899439c85c1d3fb5
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+ubuntu       22.04m3   e5ee224aa820   3 minutes ago   272MB
+ubuntu       22.04     a24be041d957   7 weeks ago     77.9MB
+
+4.Смотрим docker history для полученного образа и копируем в отчёт
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker history e5ee224aa820
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+e5ee224aa820   4 minutes ago   /bin/bash                                       195MB     Добавили iproute2, ip-putils-ping, dnsutils
+a24be041d957   7 weeks ago     /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B        
+<missing>      7 weeks ago     /bin/sh -c #(nop) ADD file:1b6c8c9518be42fa2…   77.9MB    
+<missing>      7 weeks ago     /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B        
+<missing>      7 weeks ago     /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B        
+<missing>      7 weeks ago     /bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH     0B        
+<missing>      7 weeks ago     /bin/sh -c #(nop)  ARG RELEASE                  0B       
+
+5. Смотрим docker inspect для полученного образа и копируем в отчёт
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker inspect e5ee224aa820
+[
+    {
+        "Id": "sha256:e5ee224aa8201980ba22c9f0c3c992e3b379415de215c925899439c85c1d3fb5",
+        "RepoTags": [
+            "ubuntu:22.04m3"
+        ],
+        "RepoDigests": [],
+        "Parent": "sha256:a24be041d9576937f62435f8564c2ca6e429d2760537b04c50ca50adb0c6d212",
+        "Comment": "Добавили iproute2, ip-putils-ping, dnsutils",
+        "Created": "2025-03-20T06:16:41.081743195Z",
+        "DockerVersion": "27.3.1-1",
+        "Author": "fedorinmaksim967@gmail.com",
+        "Config": {
+            "Hostname": "1662edb4702f",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": true,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": true,
+            "OpenStdin": true,
+            "StdinOnce": true,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "a24be041d957",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "22.04"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 272428292,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/0f147599fc08f0ba157f58d36e48ff5c547a9ee4c3e875cbf2b86d18546a9d3d/diff",
+                "MergedDir": "/var/lib/docker/overlay2/76c4ad4ab86bd05f7019a28049762168624915bab795998cecaca5773c96f121/merged",
+                "UpperDir": "/var/lib/docker/overlay2/76c4ad4ab86bd05f7019a28049762168624915bab795998cecaca5773c96f121/diff",
+                "WorkDir": "/var/lib/docker/overlay2/76c4ad4ab86bd05f7019a28049762168624915bab795998cecaca5773c96f121/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:270a1170e7e398434ff1b31e17e233f7d7b71aa99a40473615860068e86720af",
+                "sha256:1a74458dfb97095b382a56d0864caba44a425bbfca237fe87be2ae2337468649"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2025-03-20T06:16:41.086727919Z"
+        }
+    }
+]
+
+6. На базе образа создаём новый контейнер, добавляем в него клиенты mysql, postgresql
+root@7ff430196cbf:/# apt install mysql-client
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  mysql-client
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 9352 B of archives.
+After this operation, 35.8 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 mysql-client all 8.0.41-0ubuntu0.22.04.1 [9352 B]
+Fetched 9352 B in 0s (326 kB/s)        
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package mysql-client.
+(Reading database ... 4800 files and directories currently installed.)
+Preparing to unpack .../mysql-client_8.0.41-0ubuntu0.22.04.1_all.deb ...
+Unpacking mysql-client (8.0.41-0ubuntu0.22.04.1) ...
+Setting up mysql-client (8.0.41-0ubuntu0.22.04.1) ...
+root@7ff430196cbf:/# apt install postgresql-client -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libgdbm-compat4 libgdbm6 libldap-2.5-0 libldap-common libperl5.34 libpq5 libreadline8 libsasl2-2 libsasl2-modules libsasl2-modules-db netbase perl perl-modules-5.34 postgresql-client-14
+  postgresql-client-common readline-common
+Suggested packages:
+  gdbm-l10n libsasl2-modules-gssapi-mit | libsasl2-modules-gssapi-heimdal libsasl2-modules-ldap libsasl2-modules-otp libsasl2-modules-sql perl-doc libterm-readline-gnu-perl
+  | libterm-readline-perl-perl make libtap-harness-archive-perl postgresql-14 postgresql-doc-14 readline-doc
+The following NEW packages will be installed:
+  libgdbm-compat4 libgdbm6 libldap-2.5-0 libldap-common libperl5.34 libpq5 libreadline8 libsasl2-2 libsasl2-modules libsasl2-modules-db netbase perl perl-modules-5.34 postgresql-client
+  postgresql-client-14 postgresql-client-common readline-common
+0 upgraded, 17 newly installed, 0 to remove and 0 not upgraded.
+Need to get 10.1 MB of archives.
+After this operation, 54.8 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl-modules-5.34 all 5.34.0-3ubuntu1.3 [2976 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm6 amd64 1.23-1 [33.9 kB]
+Get:3 http://archive.ubuntu.com/ubuntu jammy/main amd64 libgdbm-compat4 amd64 1.23-1 [6606 B]
+Get:4 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libperl5.34 amd64 5.34.0-3ubuntu1.3 [4820 kB]
+Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 perl amd64 5.34.0-3ubuntu1.3 [232 kB]
+Get:6 http://archive.ubuntu.com/ubuntu jammy/main amd64 readline-common all 8.1.2-1 [53.5 kB]
+Get:7 http://archive.ubuntu.com/ubuntu jammy/main amd64 libreadline8 amd64 8.1.2-1 [153 kB]
+Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 netbase all 6.3 [12.9 kB]
+Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules-db amd64 2.1.27+dfsg2-3ubuntu1.2 [20.5 kB]
+Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-2 amd64 2.1.27+dfsg2-3ubuntu1.2 [53.8 kB]
+Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-2.5-0 amd64 2.5.18+dfsg-0ubuntu0.22.04.3 [183 kB]
+Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libldap-common all 2.5.18+dfsg-0ubuntu0.22.04.3 [15.8 kB]
+Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libpq5 amd64 14.17-0ubuntu0.22.04.1 [152 kB]
+Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libsasl2-modules amd64 2.1.27+dfsg2-3ubuntu1.2 [68.8 kB]
+Get:15 http://archive.ubuntu.com/ubuntu jammy/main amd64 postgresql-client-common all 238 [29.6 kB]
+Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 postgresql-client-14 amd64 14.17-0ubuntu0.22.04.1 [1246 kB]
+Get:17 http://archive.ubuntu.com/ubuntu jammy/main amd64 postgresql-client all 14+238 [3292 B]
+Fetched 10.1 MB in 0s (54.6 MB/s)               
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package perl-modules-5.34.
+(Reading database ... 4802 files and directories currently installed.)
+Preparing to unpack .../00-perl-modules-5.34_5.34.0-3ubuntu1.3_all.deb ...
+Unpacking perl-modules-5.34 (5.34.0-3ubuntu1.3) ...
+Selecting previously unselected package libgdbm6:amd64.
+Preparing to unpack .../01-libgdbm6_1.23-1_amd64.deb ...
+Unpacking libgdbm6:amd64 (1.23-1) ...
+Selecting previously unselected package libgdbm-compat4:amd64.
+Preparing to unpack .../02-libgdbm-compat4_1.23-1_amd64.deb ...
+Unpacking libgdbm-compat4:amd64 (1.23-1) ...
+Selecting previously unselected package libperl5.34:amd64.
+Preparing to unpack .../03-libperl5.34_5.34.0-3ubuntu1.3_amd64.deb ...
+Unpacking libperl5.34:amd64 (5.34.0-3ubuntu1.3) ...
+Selecting previously unselected package perl.
+Preparing to unpack .../04-perl_5.34.0-3ubuntu1.3_amd64.deb ...
+Unpacking perl (5.34.0-3ubuntu1.3) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../05-readline-common_8.1.2-1_all.deb ...
+Unpacking readline-common (8.1.2-1) ...
+Selecting previously unselected package libreadline8:amd64.
+Preparing to unpack .../06-libreadline8_8.1.2-1_amd64.deb ...
+Unpacking libreadline8:amd64 (8.1.2-1) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../07-netbase_6.3_all.deb ...
+Unpacking netbase (6.3) ...
+Selecting previously unselected package libsasl2-modules-db:amd64.
+Preparing to unpack .../08-libsasl2-modules-db_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+Unpacking libsasl2-modules-db:amd64 (2.1.27+dfsg2-3ubuntu1.2) ...
+Selecting previously unselected package libsasl2-2:amd64.
+Preparing to unpack .../09-libsasl2-2_2.1.27+dfsg2-3ubuntu1.2_amd64.deb ...
+
+7. Фиксируем изменения в контейнере при помощи docker commit
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker commit -m "Установил mysql-client и postgresql-client" -a "fedorinmaksim967@gmail.com" 7ff430196cbf ubuntu:22.04m4
+sha256:f00870c786efe317cb4512c2df5f39c7e1349409c96439416f88e42d416140a1
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker images
+REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+ubuntu       22.04m4   f00870c786ef   2 seconds ago    325MB
+ubuntu       22.04m3   e5ee224aa820   19 minutes ago   272MB
+ubuntu       22.04     a24be041d957   7 weeks ago      77.9MB
+
+8. При помощи клиентов подключаемся к серверам по именам контейнеров
+root@0ae05ee4d6c2:/# mysql -h 172.17.0.2  -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 9.2.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+root@0ae05ee4d6c2:/# psql -h 172.17.0.3 -U postgres
+Password for user postgres: 
+psql (14.17 (Ubuntu 14.17-0ubuntu0.22.04.1), server 17.4 (Debian 17.4-1.pgdg120+2))
+WARNING: psql major version 14, server major version 17.
+         Some psql features might not work.
+Type "help" for help.
+
+postgres=# 
+9. Смотрим базы данных и создаём свои.
+mysql> 
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+mysql> create table var (
+    -> id int not null,
+    -> fio varchar(15) not null,
+    -> primary key (id)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show tables
+    -> ;
++------------------------------------------------------+
+| Tables_in_mysql                                      |
++------------------------------------------------------+
+| columns_priv                                         |
+| component                                            |
+| db                                                   |
+| default_roles                                        |
+| engine_cost                                          |
+| func                                                 |
+| general_log                                          |
+| global_grants                                        |
+| gtid_executed                                        |
+| help_category                                        |
+| help_keyword                                         |
+| help_relation                                        |
+| help_topic                                           |
+| innodb_index_stats                                   |
+| innodb_table_stats                                   |
+| ndb_binlog_index                                     |
+| password_history                                     |
+| plugin                                               |
+| procs_priv                                           |
+| proxies_priv                                         |
+| replication_asynchronous_connection_failover         |
+| replication_asynchronous_connection_failover_managed |
+| replication_group_configuration_version              |
+| replication_group_member_actions                     |
+| role_edges                                           |
+| server_cost                                          |
+| servers                                              |
+| slave_master_info                                    |
+| slave_relay_log_info                                 |
+| slave_worker_info                                    |
+| slow_log                                             |
+| tables_priv                                          |
+| time_zone                                            |
+| time_zone_leap_second                                |
+| time_zone_name                                       |
+| time_zone_transition                                 |
+| time_zone_transition_type                            |
+| user                                                 |
+| var                                                  |
++------------------------------------------------------+
+39 rows in set (0.00 sec)
+
+mysql> use mysql
+Database changed
+mysql> create database test2
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| test               |
+| test1              |
+| test2              |
++--------------------+
+
