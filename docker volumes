@@ -1,0 +1,150 @@
+//создание томов
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker volume create vol1
+vol1
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker volume create vol2
+vol2
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker volume ls
+DRIVER    VOLUME NAME
+local     7bf575fb791bbde3a30c3a335e520176f5e7e08a19497a255a8e19b3b889d30c
+local     7d5b20ed97160d53a000727af0595ca49c573aacbabc5ccf089b5bacdfbfcdf9
+local     12da9c8db2efe56498f6f2bb220de735da251e1ca48241996def9f12608bf2fc
+local     45f22ed0d67da17a6d81888f61e54a819977996a655213e67940e6750a97c65f
+local     a4a056a4d519e857132f20ce99504fb7d9531fb28eebeabd9b648f7d09cbfcf0
+local     c7baf69f05319110b3f536450a9c52b6ba94f7c8dea0df565544b4415b759a21
+local     e4f34c159baaed04a464b2c71e7d46add2d029f239ca864608362bcc84009fc8
+local     f962a088c5f1193ae8b1e5b3e71c16b1dc11255fa8de8d02e4d771b2c4edd881
+local     fa7fb0dba29b883408d68530e04f498b58e277a0402b940e4bb163703bf44300
+local     vol1
+local     vol2
+
+//Просмотр информациии о томе
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker volume inspect vol1
+[
+    {
+        "CreatedAt": "2025-03-28T05:31:22Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/vol1/_data",
+        "Name": "vol1",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker volume inspect vol2
+[
+    {
+        "CreatedAt": "2025-03-28T05:31:24Z",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/vol2/_data",
+        "Name": "vol2",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+'//удаление ненужных томов
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker volume prune
+WARNING! This will remove anonymous local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Deleted Volumes:
+12da9c8db2efe56498f6f2bb220de735da251e1ca48241996def9f12608bf2fc
+45f22ed0d67da17a6d81888f61e54a819977996a655213e67940e6750a97c65f
+fa7fb0dba29b883408d68530e04f498b58e277a0402b940e4bb163703bf44300
+7bf575fb791bbde3a30c3a335e520176f5e7e08a19497a255a8e19b3b889d30c
+7d5b20ed97160d53a000727af0595ca49c573aacbabc5ccf089b5bacdfbfcdf9
+e4f34c159baaed04a464b2c71e7d46add2d029f239ca864608362bcc84009fc8
+
+Total reclaimed space: 168.6MB
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker volume ls
+DRIVER    VOLUME NAME
+local     a4a056a4d519e857132f20ce99504fb7d9531fb28eebeabd9b648f7d09cbfcf0
+local     c7baf69f05319110b3f536450a9c52b6ba94f7c8dea0df565544b4415b759a21
+local     f962a088c5f1193ae8b1e5b3e71c16b1dc11255fa8de8d02e4d771b2c4edd881
+local     vol1
+local     vol2
+
+//создание файла 
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker run --mount type=volume,source=vol1,target=/home/vol1 --name myubuntu -it ubuntu:22.04
+root@d7f67b8b7f91:/# cd /home/vol1
+root@d7f67b8b7f91:/home/vol1# ls -l  
+total 0
+root@d7f67b8b7f91:/home/vol1# cat > test_vol.txt
+Проверка работы тома "vol1"
+root@d7f67b8b7f91:/home/vol1# cat test_vol.txt
+ПР�роверка работы тома "vol1"
+root@d7f67b8b7f91:/home/vol1# 
+root@d7f67b8b7f91:/home/vol1# exit
+exit
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ 
+
+//Создание 2 контейнера с использхованием старого и нового тома (vol2)
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker run --mount type=volume,source=vol1,target=/home/vol1 --mount type=volume,source=vol2,target=/home/vol2 --name myubuntu1 -it --rm ubuntu:22.04
+root@b66872e145d3:/# cd /home/vol1
+root@b66872e145d3:/home/vol1# ls -l
+total 4
+-rw-r--r-- 1 root root 49 Mar 28 05:39 test_vol.txt
+root@b66872e145d3:/home/vol1# cat test_vol.txt (данные из vol1 перенеслись в другой контейнер)
+ПР�роверка работы тома "vol1"
+root@b66872e145d3:/home/vol1# cat > test_vol2_myubuntu1.txt
+Проверяю работу   
+root@b66872e145d3:/home/vol1# cd ../vol2
+root@b66872e145d3:/home/vol2# ls -l
+total 0
+root@b66872e145d3:/home/vol1# cd ../vol2
+root@b66872e145d3:/home/vol2# cp ../vol1/* ./
+root@b66872e145d3:/home/vol2# ls -l  
+total 8
+-rw-r--r-- 1 root root 49 Mar 28 05:44 test_vol.txt
+-rw-r--r-- 1 root root 34 Mar 28 05:44 test_vol2_myubuntu1.txt (содержимое vol1 копировалось в vol2)
+root@b66872e145d3:/home/vol2# 
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ docker ps -a (контейнер с ключом --rm удалился после завершения работы)
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                        PORTS                 NAMES
+d7f67b8b7f91   ubuntu:22.04   "/bin/bash"              15 minutes ago   Exited (0) 13 minutes ago                           myubuntu
+c94c70e39134   ubuntu:22.04   "/bin/bash"              13 days ago      Exited (255) 23 minutes ago                         kind_dewdney
+9f7f4cd2ae12   mariadb        "docker-entrypoint.s…"   13 days ago      Exited (255) 13 days ago      3306/tcp              mariadb
+2b33c42a8092   postgres       "docker-entrypoint.s…"   2 weeks ago      Exited (255) 13 days ago      5432/tcp              funny_austin
+9b66720d53de   mysql          "docker-entrypoint.s…"   2 weeks ago      Exited (255) 13 days ago      3306/tcp, 33060/tcp   cranky_goldberg
+
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ mkdir vol3
+@Faksimka2 ➜ /workspaces/02.01-MDK (main) $ cd vol3
+@Faksimka2 ➜ /workspaces/02.01-MDK/vol3 (main) $ cat > message_to_container
+Привет от хостовой части контейнеру                                    
+Приветик
+@Faksimka2 ➜ /workspaces/02.01-MDK/vol3 (main) $ docker run --mount type=bind,source=.,target=/home/vol3 --mount type=volume,source=vol2,target=/home/vol2 --name myubuntu1 -it --rm ubuntu:22.0
+4
+root@5527dfb83b0b:/# cd /home/vol3
+root@5527dfb83b0b:/home/vol3# ls -l
+total 4
+-rw-rw-rw- 1 1000 1000 84 Mar 28 05:57 message_to_container
+root@5527dfb83b0b:/home/vol3# cat message_to_container
+Привет от хостовой части контейнеру
+Приветик
+root@5527dfb83b0b:/home/vol3# cd ..
+root@5527dfb83b0b:/home# cd vol2
+root@5527dfb83b0b:/home/vol2# ls -l
+total 8
+-rw-r--r-- 1 root root 49 Mar 28 05:44 test_vol.txt
+-rw-r--r-- 1 root root 34 Mar 28 05:44 test_vol1_myubuntu1.txt
+@Faksimka2 ➜ /workspaces/02.01-MDK/vol3 (main) $ docker run -it --mount type=bind,source=.,target=/home/mnt --name cont1 --rm ubuntu:22.04
+root@40fec9ebc3c1:/# cd /home/mnt
+root@40fec9ebc3c1:/home/mnt# ls -l
+total 4
+-rw-rw-rw- 1 1000 1000 84 Mar 28 05:57 message_to_container
+root@40fec9ebc3c1:/home/mnt# cat message_to_container
+Привет от хостовой части контейнеру
+Приветик
+root@40fec9ebc3c1:/home/mnt# cat > message_from_cont1
+Привет от контейнера cont1
+root@40fec9ebc3c1:/home/mnt# exit
+exit
+@Faksimka2 ➜ /workspaces/02.01-MDK/vol3 (main) $ ls -l
+total 8
+-rw-rw-rw- 1 root      root      46 Mar 28 06:21 message_from_cont1
+-rw-rw-rw- 1 codespace codespace 84 Mar 28 05:57 message_to_container
+@Faksimka2 ➜ /workspaces/02.01-MDK/vol3 (main) $ cat message_from_cont1
+Привет от �контейнера cont1
+@Faksimka2 ➜ /workspaces/02.01-MDK/vol3 (main) $ cat message_to_container
+Привет от хостовой части контейнеру
+Приветик
