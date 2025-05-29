@@ -1,0 +1,115 @@
+faksimka@server:~$ cd /etc/samba
+faksimka@server:/etc/samba$ ls -l
+total 20
+-rw-r--r-- 1 root root    8 янв  5  2024 gdbcommands
+-rw-r--r-- 1 root root 8950 мая 29 06:56 smb.conf
+drwxr-xr-x 2 root root 4096 янв  5  2024 tls
+faksimka@server:/etc/samba$ sudo chown faksimka:faksimka
+chown: missing operand after ‘faksimka:faksimka’
+Try 'chown --help' for more information.
+faksimka@server:/etc/samba$ sudo chown faksimka:faksimka .
+faksimka@server:/etc/samba$ sudo vim /etc/samba/smb.conf
+
+[Shared1]
+comment = SimpleShare
+path = /media/RAID/Shared
+inherit acls = yes
+writable = yes
+valid users = faksimka
+read list = faksimka
+write list = faksimka
+faksimka@server:/etc/samba$ sudo testparm
+Load smb config files from /etc/samba/smb.conf
+Loaded services file OK.
+Weak crypto is allowed
+
+Server role: ROLE_STANDALONE
+
+Press enter to see a dump of your service definitions
+
+# Global parameters
+[global]
+	log file = /var/log/samba/log.%m
+	logging = file
+	map to guest = Bad User
+	max log size = 1000
+	obey pam restrictions = Yes
+	pam password change = Yes
+	panic action = /usr/share/samba/panic-action %d
+	passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+	passwd program = /usr/bin/passwd %u
+	server role = standalone server
+	server string = %h server (Samba, Ubuntu)
+	unix password sync = Yes
+	usershare allow guests = Yes
+	idmap config * : backend = tdb
+
+
+[printers]
+	browseable = No
+	comment = All Printers
+	create mask = 0700
+	path = /var/spool/samba
+	printable = Yes
+
+
+[print$]
+	comment = Printer Drivers
+	path = /var/lib/samba/printers
+
+
+[Shared1]
+	comment = SimpleShare
+	inherit acls = Yes
+	path = /media/RAID/Shared
+	read list = faksimka
+	read only = No
+	valid users = faksimka
+	write list = faksimka
+faksimka@server:/etc/samba$ sudo service smbd restart
+faksimka@server:/media/RAID$ ls -l
+total 32
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+faksimka@server:/media/RAID$ cd shared
+faksimka@server:/media/RAID/shared$ ls -l
+total 4
+drwxr-xr-x 2 faksimka faksimka 4096 мая 29 07:11 Papka
+faksimka@server:/media/RAID/shared$ cd papka
+-bash: cd: papka: No such file or directory
+faksimka@server:/media/RAID/shared$ cd Papka
+faksimka@server:/media/RAID/shared/Papka$ LS -L
+LS: command not found
+faksimka@server:/media/RAID/shared/Papka$ ls -l
+total 4
+-rwxr--r-- 1 faksimka faksimka 23 мая 29 07:10 Desktop.txt
+faksimka@server:/media/RAID/shared/Papka$ cat Desktop.txt
+From desktop to server
+faksimka@server:/media/RAID$ sudo useradd -m -s /bin/bash fedorin
+faksimka@server:/media/RAID$ sudo passwd fedorin
+New password: 
+Retype new password: 
+passwd: password updated successfully
+faksimka@server:/media/RAID$ sudo smbpasswd -a fedorin
+New SMB password:
+Retype new SMB password:
+Added user fedorin.
+faksimka@server:/media/RAID$ sudo apt update
+faksimka@server:/media/RAID$ ls -l
+total 32
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+-rw-rw-r--  1 faksimka faksimka     0 мая 29 07:21 from
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+faksimka@server:/media/RAID$ cd shared
+faksimka@server:/media/RAID/shared$ ls -l
+total 4
+drwxr-xr-x 2 faksimka faksimka 4096 мая 29 07:11 Papka
+faksimka@server:/media/RAID/shared$ cd Papka
+faksimka@server:/media/RAID/shared/Papka$ cat > fromserver
+From server to desktop
