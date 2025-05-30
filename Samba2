@@ -1,0 +1,206 @@
+faksimka@server:~$ sudo groupadd Buhs
+faksimka@server:~$ vim /etc/group
+faksimka@server:~$ vim /etc/group
+faksimka@server:~$ sudo useradd -G Buhs buh1
+faksimka@server:~$ sudo passwd buh1 
+New password: 
+Retype new password: 
+passwd: password updated successfully
+faksimka@server:~$ cd /media/RAID
+faksimka@server:/media/RAID$ ls -l
+total 32
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+-rw-rw-r--  1 faksimka faksimka     0 мая 29 07:21 from
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+faksimka@server:/media/RAID$ mkdir Shared_student
+faksimka@server:/media/RAID$ mkdir Shared_buh1
+faksimka@server:/media/RAID$ mkdir Shared_buhg
+faksimka@server:/media/RAID$ rmdir Shared_student
+faksimka@server:/media/RAID$ mkdir Shared_faksimka
+faksimka@server:/media/RAID$ mkdir Shared_all
+faksimka@server:/media/RAID$ ls -l
+total 48
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+-rw-rw-r--  1 faksimka faksimka     0 мая 29 07:21 from
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_all
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:25 Shared_buh1
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_buhg
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_faksimka
+faksimka@server:/media/RAID$ sudo chown buh1 Shared_buh1
+faksimka@server:/media/RAID$ ls -l
+total 48
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+-rw-rw-r--  1 faksimka faksimka     0 мая 29 07:21 from
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_all
+drwxrwxr-x  2 buh1     faksimka  4096 мая 30 06:25 Shared_buh1
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_buhg
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_faksimka
+faksimka@server:/media/RAID$ sudo chown buh1:Buhs Shared_buhg
+faksimka@server:/media/RAID$ ls -l
+total 48
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+-rw-rw-r--  1 faksimka faksimka     0 мая 29 07:21 from
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_all
+drwxrwxr-x  2 buh1     faksimka  4096 мая 30 06:25 Shared_buh1
+drwxrwxr-x  2 buh1     Buhs      4096 мая 30 06:26 Shared_buhg
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_faksimka
+faksimka@server:/media/RAID$ sudo chmod 777 Shared_all/
+faksimka@server:/media/RAID$ ls -l
+total 48
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+-rw-rw-r--  1 faksimka faksimka     0 мая 29 07:21 from
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+drwxrwxrwx  2 faksimka faksimka  4096 мая 30 06:26 Shared_all
+drwxrwxr-x  2 buh1     faksimka  4096 мая 30 06:25 Shared_buh1
+drwxrwxr-x  2 buh1     Buhs      4096 мая 30 06:26 Shared_buhg
+drwxrwxr-x  2 faksimka faksimka  4096 мая 30 06:26 Shared_faksimka
+faksimka@server:/media/RAID$ stat Shared_faksimka/
+  File: Shared_faksimka/
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 10300h/66304d	Inode: 31464       Links: 2
+Access: (0775/drwxrwxr-x)  Uid: ( 1000/faksimka)   Gid: ( 1000/faksimka)
+Access: 2025-05-30 06:26:21.919739743 +0000
+Modify: 2025-05-30 06:26:21.919739743 +0000
+Change: 2025-05-30 06:26:21.919739743 +0000
+ Birth: 2025-05-30 06:26:21.919739743 +0000
+faksimka@server:/media/RAID$ stat Shared_buh1
+  File: Shared_buh1
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 10300h/66304d	Inode: 31465       Links: 2
+Access: (0775/drwxrwxr-x)  Uid: ( 1002/    buh1)   Gid: ( 1000/faksimka)
+Access: 2025-05-30 06:25:59.815934419 +0000
+Modify: 2025-05-30 06:25:59.815934419 +0000
+Change: 2025-05-30 06:28:24.303118200 +0000
+ Birth: 2025-05-30 06:25:59.815934419 +0000
+faksimka@server:/media/RAID$ stat Shared_buhg
+  File: Shared_buhg
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 10300h/66304d	Inode: 31466       Links: 2
+Access: (0775/drwxrwxr-x)  Uid: ( 1002/    buh1)   Gid: ( 1002/    Buhs)
+Access: 2025-05-30 06:26:10.299837753 +0000
+Modify: 2025-05-30 06:26:10.299837753 +0000
+Change: 2025-05-30 06:29:51.254940298 +0000
+ Birth: 2025-05-30 06:26:10.299837753 +0000
+faksimka@server:/media/RAID$ stat Shared_all
+  File: Shared_all
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 10300h/66304d	Inode: 31467       Links: 2
+Access: (0777/drwxrwxrwx)  Uid: ( 1000/faksimka)   Gid: ( 1000/faksimka)
+Access: 2025-05-30 06:26:26.871700700 +0000
+Modify: 2025-05-30 06:26:26.871700700 +0000
+Change: 2025-05-30 06:31:00.418872392 +0000
+ Birth: 2025-05-30 06:26:26.871700700 +0000
+//Пишем файл конфигурации для самба
+[Shared_faks]
+        path = /media/RAID/Shared_faksimka
+        writable = yes
+        write list = faksimka,fedorin,@faksimka
+
+[Shared_b1]
+        path = /media/RAID/Shared_buh1
+        writeable = yes
+        inherit owner = yes
+        inherit permissions = yes
+        write list = faksimka,buh1
+
+[Shared_buhs]
+        path = /media/RAID/Shared_buhg
+        writeable = yes
+        force user = buh1
+        force group = Buhs
+        create mask = 0666
+        directory mask = 0777
+        write list = faksimka
+
+[Shared_all]
+        path = /media/RAID/Shared_all
+        writable = yes
+        guest ok = yes
+
+faksimka@server:/media/RAID$ ls -l
+total 48
+-rw-rw-r--  1 faksimka faksimka    13 мая 29 03:31 123
+drwx--x---  3 faksimka faksimka  4096 мая 29 06:23 docker
+drwxr-xr-x 96 faksimka faksimka  4096 мая 29 03:32 etc
+-rw-rw-r--  1 faksimka faksimka     0 мая 29 07:21 from
+drwx------  2 root     root     16384 мая 29 03:12 lost+found
+drwxrwxr-x  3 faksimka faksimka  4096 мая 29 07:09 shared
+drwxrwxrwx  2 faksimka faksimka  4096 мая 30 06:26 Shared_all
+drwxrwxr-x  2 buh1     faksimka  4096 мая 30 07:00 Shared_buh1
+drwxrwxr-x  2 buh1     Buhs      4096 мая 30 07:02 Shared_buhg
+drwxrwxr-x  3 faksimka faksimka  4096 мая 30 06:57 Shared_faksimka
+faksimka@server:/media/RAID$ ls Shared_faksimka/
+Folder
+faksimka@server:/media/RAID$ stat Shared_faksimka/Folder/Test.txt 
+  File: Shared_faksimka/Folder/Test.txt
+  Size: 38        	Blocks: 8          IO Block: 4096   regular file
+Device: 10300h/66304d	Inode: 31470       Links: 1
+Access: (0744/-rwxr--r--)  Uid: ( 1000/faksimka)   Gid: ( 1000/faksimka)
+Access: 2025-05-30 07:01:54.510414226 +0000
+Modify: 2025-05-30 07:00:26.076377265 +0000
+Change: 2025-05-30 07:00:26.074479508 +0000
+ Birth: 2025-05-30 07:00:26.070479514 +0000
+
+faksimka@server:/media/RAID$ stat Shared_buh1/Test.txt 
+  File: Shared_buh1/Test.txt
+  Size: 38        	Blocks: 8          IO Block: 4096   regular file
+Device: 10300h/66304d	Inode: 31469       Links: 1
+Access: (0764/-rwxrw-r--)  Uid: ( 1002/    buh1)   Gid: ( 1000/faksimka)
+Access: 2025-05-30 07:00:40.126468359 +0000
+Modify: 2025-05-30 07:00:40.139106526 +0000
+Change: 2025-05-30 07:00:40.134468353 +0000
+ Birth: 2025-05-30 07:00:40.126468359 +0000
+
+faksimka@server:/media/RAID$ stat Shared_buhg/Test.txt 
+  File: Shared_buhg/Test.txt
+  Size: 38        	Blocks: 8          IO Block: 4096   regular file
+Device: 10300h/66304d	Inode: 31471       Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1002/    buh1)   Gid: ( 1002/    Buhs)
+Access: 2025-05-30 07:02:42.838383101 +0000
+Modify: 2025-05-30 07:02:42.852868034 +0000
+Change: 2025-05-30 07:02:42.846383095 +0000
+ Birth: 2025-05-30 07:02:42.838383101 +0000
+
+faksimka@server:/media/RAID$ stat Shared_buhg/Student_Folder/
+  File: Shared_buhg/Student_Folder/
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 10300h/66304d	Inode: 31472       Links: 2
+Access: (0775/drwxrwxr-x)  Uid: ( 1002/    buh1)   Gid: ( 1002/    Buhs)
+Access: 2025-05-30 07:08:14.018235683 +0000
+Modify: 2025-05-30 07:06:57.534261301 +0000
+Change: 2025-05-30 07:06:57.534261301 +0000
+ Birth: 2025-05-30 07:06:57.534261301 +0000
+faksimka@server:/media/RAID$ umask
+0002
+faksimka@server:/media/RAID$ umask 0000
+faksimka@server:/media/RAID$ umask
+0000
+faksimka@server:/media/RAID$ mkdir Test_2
+faksimka@server:/media/RAID$ stat Test_2
+  File: Test_2
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 10300h/66304d	Inode: 31473       Links: 2
+Access: (0777/drwxrwxrwx)  Uid: ( 1000/faksimka)   Gid: ( 1000/faksimka)
+Access: 2025-05-30 07:11:17.322188218 +0000
+Modify: 2025-05-30 07:11:17.322188218 +0000
+Change: 2025-05-30 07:11:17.322188218 +0000
+ Birth: 2025-05-30 07:11:17.322188218 +0000
+
